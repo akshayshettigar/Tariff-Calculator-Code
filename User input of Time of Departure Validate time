@@ -1,0 +1,19 @@
+checkInData = input.Date_of_Arrival;
+timeOfCheckIn = input.Time_of_Arrival;
+checkOutDate = input.Date_of_Departure;
+timeOfCheckOut = input.Time_of_Departure;
+if(checkOutDate != null && timeOfCheckOut != null)
+{
+	checkOutTimes = toString(checkOutDate) + " " + toString(timeOfCheckOut);
+	checkInTimes = toString(checkInData) + " " + toString(timeOfCheckIn);
+	checkInTime = toDatetime(checkInTimes);
+	checkOutTime = toDatetime(checkOutTimes);
+	if(checkOutTime < zoho.currenttime || checkInTime < zoho.currenttime)
+	{
+		alert "Please enter a valid time";
+	}
+	else if(checkOutTime < checkInTime)
+	{
+		alert "Please enter a valid time ";
+	}
+}
