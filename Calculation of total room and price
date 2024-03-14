@@ -1,0 +1,58 @@
+checkInData = input.Date_of_Arrival;
+checkOutDate = input.Date_of_Departure;
+timeOfCheckIn = input.Time_of_Arrival;
+timeOfCheckOut = input.Time_of_Departure;
+if(checkInData != null && checkOutDate != null && timeOfCheckIn != null && timeOfCheckOut != null)
+{
+	checkInTimes = toString(checkInData) + " " + toString(timeOfCheckIn);
+	checkOutTimes = toString(checkOutDate) + " " + toString(timeOfCheckOut);
+	checkInTime = toDatetime(checkInTimes);
+	checkOutTime = toDatetime(checkOutTimes);
+	info "checkInTime " + checkInTime;
+	info "checkOUtTime  " + checkOutTime;
+	totalDurationInDays = 0;
+	totalhours = timebetween(checkInTime,checkOutTime);
+	info totalhours;
+	if(hoursbetween(checkInTime,checkOutTime) == 0)
+	{
+		//when timebetween function elimates 00hr when it less that 1 hour
+		totalhours = "00:" + totalhours;
+	}
+	totaHoursList = totalhours.toList(":");
+	hours = toNumber(totaHoursList.get(0));
+	info totaHoursList;
+	if(1 >= totaHoursList.size())
+	{
+		//when timebetween function elimates 00min when it is 2:00 or others
+		minutes = "00";
+	}
+	else
+	{
+		minutes = toNumber(totaHoursList.get(1));
+	}
+	formattedTime = toDecimal(hours + "." + minutes);
+	totalDurationInMinutes = formattedTime * 60;
+	//to find total minutes
+	totalDurationInDays = toNumber(totalDurationInMinutes / (24 * 60));
+	//to find the number of days 1day= 24hr * 60min
+	info "totalDurationInDays " + totalDurationInDays;
+	remainingMinutes = totalDurationInMinutes % (24 * 60);
+	//pick the remaining minutes after the concider of days 
+	remaininghours = remainingMinutes / 60;
+	info "remaininghours " + remaininghours;
+	info totalDurationInDays + " days and " + remaininghours + " hours";
+	totalDurationInDaysinloop = 0;
+	if(totalDurationInMinutes <= 6 * 60 || remaininghours * 60 > 6 * 60 || remaininghours * 60 < 6 * 60)
+	{
+		// check for less than 6 hours * 60 minutes , remaining hours is less than 6 or more concider as 1 extra day
+		totalDurationInDaysinloop = 1;
+		remaininghours = 0;
+		totalDurationInDays = totalDurationInDays + totalDurationInDaysinloop;
+		info "inside loop" + totalDurationInDays;
+	}
+	info "final-->" + totalDurationInDays;
+	info "remaininghours " + remaininghours;
+	totalAmount = totalDurationInDays * 1000;
+	input.Number_of_Days = totalDurationInDays;
+	input.Total_Amount = totalAmount;
+}
