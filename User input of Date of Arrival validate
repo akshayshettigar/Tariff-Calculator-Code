@@ -1,0 +1,8 @@
+if(input.Date_of_Arrival < zoho.currenttime || input.Date_of_Departure < zoho.currenttime)
+{
+	alert "Please validate Arrival Date ";
+}
+else if(input.Date_of_Departure < input.Date_of_Arrival)
+{
+	alert "Please validate the Departure Date  ";
+}
